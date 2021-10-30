@@ -1,0 +1,11 @@
+.login-page {
+    background:url(/images/bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+}
+
+body {
+    overflow: hidden;
+}
