@@ -6,5 +6,6 @@
         public function Update($values);
         public function Delete($value);
         public function QSql($sql);
+        public function GetByColumn($column,$value);
     }
 ?>

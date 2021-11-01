@@ -45,10 +45,14 @@
         }
 
         public function Delete($blogId):IResult {
-            $result=BusinessRules::Run([CheckIfBlogExist($blogId)]);
+            if(!Number::Check($blogId)) {
+                return new ErrorResult(null,['blogs_id'=>Number::Message()]);
+            }
+            $result=BusinessRules::Run([$this->CheckIfBlogExist($blogId)]);
             if($result!=null) {
                 return $result;
             }
+            return $this->blogModel->Delete($blogId,Messages::$BlogDeleted);
         }
 
         private function CheckIfBlogExist($id) {

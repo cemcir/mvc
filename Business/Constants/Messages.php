@@ -9,5 +9,7 @@
         public static $BlogAdded="Blog başarıyla eklendi";
         public static $BlogNotAdded="Blog eklenemedi";
         public static $BlogUpdated="Blog başarıyla güncellendi";
+        public static $BlogDeleted="Blog başarıyla silindi";
+        public static $AboutNotFound="Hakkımda bilgisi bulunamadı";
     }
 ?>

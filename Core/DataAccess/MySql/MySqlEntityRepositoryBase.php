@@ -70,5 +70,11 @@
             $stmt->execute();
             return $stmt;
         }
+
+        public function GetByColumn($column,$value) {
+            $stmt=$this->db->prepare("SELECT * FROM $this->table WHERE $column=?");
+            $stmt->execute([htmlspecialchars($value)]);
+            return $stmt;
+        }
     }
 ?>

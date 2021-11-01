@@ -47,6 +47,9 @@
         }
 
         public function Delete($settingId):IResult {
+            if(!Number::Check($settingId)) {
+                return new ErrorResult(null,['settings_id'=>Number::Message()]);
+            }
             $result=BusinessRules::Run([$this->CheckIfSettingExists($settingId)]);
             if($result!=null) {
                 return $result;

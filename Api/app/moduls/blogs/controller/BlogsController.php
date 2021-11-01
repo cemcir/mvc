@@ -89,6 +89,29 @@
                 }
                 echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
             }
-        } 
+        }
+        
+        public function Delete() {
+            $this->data=json_decode(file_get_contents("php://input"),true);
+            $this->result=$this->blogService->Delete($this->data['blogs_id']);
+              
+            if($this->result->Success) {
+                http_response_code($this->httpStatusCode['OK']);
+                unset($this->result->TmpName,$this->result->EncryptionFile,$this->result->DeleteFile);
+                echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
+            }
+            else {
+                if(!empty($this->result->arrMessage)) {
+                    http_response_code($this->httpStatusCode['UnprocessableEntity']);
+                }
+                else if($this->result->Message==Messages::$BlogNotFound) {
+                    http_response_code($this->httpStatusCode['NotFound']);
+                }
+                else {
+                    http_response_code($this->httpStatusCode['InternalServerError']);
+                }
+                echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
+            }
+        }
     }
 ?>

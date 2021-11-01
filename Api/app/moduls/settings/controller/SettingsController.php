@@ -20,7 +20,7 @@
                 }
                 else {
                     http_response_code($this->httpStatusCode['InternalServerError']);
-                    echo json_encode($this->result);
+                    echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
                 }
             }
         }
@@ -101,7 +101,15 @@
                 echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
             }
             else {
-                http_response_code($this->httpStatusCode['InternalServerError']);
+                if(!empty($this->result->arrMessage)) {
+                    http_response_code($this->httpStatusCode['UnprocessableEntity']);
+                }
+                else if(!empty($this->result->Message) && $this->result->Message==Messages::$SettingNotFound) {
+                    http_response_code($this->httpStatusCode['NotFound']);
+                }
+                else {
+                    http_response_code($this->httpStatusCode['InternalServerError']);
+                }
                 echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
             }
         }

@@ -86,6 +86,23 @@
                 return new ErrorResult($e->getMessage());
             }
         }
+
+        public function GetByColumn($column,$value,$entityNotFound):IDataResult {
+            try {
+                $this->unitOfWork->BeginTransaction();
+                $stmt=$this->unitOfWork->dal->GetByColumn($column,$value);
+                $this->unitOfWork->Commit();
+                if($stmt->rowCount()>0) {
+                    $this->data=$stmt->fetch(PDO::FETCH_ASSOC);
+                    return new SuccessDataResult($this->data);
+                }
+                return new ErrorDataResult($entityNotFound);
+            }
+            catch(PDOException $e) {
+                $this->unitOfWork->RollBack();
+                return new ErrorDataResult($e->getMessage());
+            }
+        }
     }
 
 ?>
