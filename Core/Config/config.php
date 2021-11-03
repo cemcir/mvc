@@ -1,6 +1,5 @@
 <?php
-    define('DIRECTORY','../app');
-    define('MAIN_DIRECTORY','../..');
+    define('MAIN_DIRECTORY','../..'); //ana dizin
     global $config;
 
     $config=
