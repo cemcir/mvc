@@ -7,12 +7,12 @@
     [
         "home"=>
         [
-            "modul"=>"default",
+            "modul"=>"defaults",  //url ye http://mvc dediğimizde varsayılan olarak gidecek controller
             "method"=>"index"
         ]
     ];
 
-    global $httpStatusCode;
+    global $httpStatusCode; //durum kodları
     
     $httpStatusCode=[
         'Continue'=>100,  

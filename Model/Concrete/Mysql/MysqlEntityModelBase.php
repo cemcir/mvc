@@ -2,24 +2,25 @@
     class MySqlEntityModelBase implements IEntityModel {
         protected $unitOfWork;
 
-        public function __construct($unitOfWork) {
+        public function __construct($unitOfWork) {// bağımlı enjeksiyon yap 
             $this->unitOfWork=$unitOfWork;
         }
         
-        public function GetAll($options,$entityNotFound):IDataResult {
+        public function GetAll($options,$entityNotFound):IDataResult { // options değeri ilgili sorgu için kıstaslar dizisi örnek ['colums_name'=>'settings_must','columns_sort'=>'ASC'] gibi
+            // $entityNotFound ise artık hangi modeli extends ederse bu modeli ona ait ilgili bulunamadı mesajı o mesajları ise business katmanındaki Constants sabit klasörü altındaki Messages sınıfından alacak 
             try {
-                $this->unitOfWork->BeginTransaction();
-                $stmt=$this->unitOfWork->dal->GetAll($options);
-                $this->unitOfWork->Commit();
-                if($stmt->rowCount()>0) {
-                    $this->data=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                    return new SuccessDataResult($this->data);
+                $this->unitOfWork->BeginTransaction();// UnitOfWork pattern yardımıyla transaction ı başlat
+                $stmt=$this->unitOfWork->dal->GetAll($options);// ilgili options sorgu kıstasıyla tablodaki tüm veriler alınacak options=[] olursa tabloyu olduğu gibi listeleyecek
+                $this->unitOfWork->Commit();// transaction ı commit et
+                if($stmt->rowCount()>0) {// tablodan birden fazla satır geldi mi kontrol et
+                    $this->data=$stmt->fetchAll(PDO::FETCH_ASSOC);// tablodaki tüm satırları al
+                    return new SuccessDataResult($this->data); // başarılı veri objesi dön Success=true ,Data=ilgili tablodan dönen verilerin listesi
                 }
-                return new ErrorDataResult($entityNotFound);
+                return new ErrorDataResult($entityNotFound);// başarısız veri objesi dön Success=false ,Data=null ,ve Message=ilgili tablo için hata mesajı
             }
             catch(PDOException $e) {
-                $this->unitOfWork->RollBack();
-                return new ErrorDataResult($e->getMessage());
+                $this->unitOfWork->RollBack();// işlem başarısızsa transaction yardımıyla yapılan işlemi geri al
+                return new ErrorDataResult($e->getMessage());//başarısız veri objesi yardımıyla genel ata mesajını dön
             }
         }
 
@@ -93,7 +94,7 @@
                 $stmt=$this->unitOfWork->dal->GetByColumn($column,$value);
                 $this->unitOfWork->Commit();
                 if($stmt->rowCount()>0) {
-                    $this->data=$stmt->fetch(PDO::FETCH_ASSOC);
+                    $this->data=$stmt->fetch(PDO::FETCH_ASSOC);//tablodaki tek satırı al
                     return new SuccessDataResult($this->data);
                 }
                 return new ErrorDataResult($entityNotFound);

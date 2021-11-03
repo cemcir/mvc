@@ -1,5 +1,5 @@
 <?php
-    class ConstMessages {
+    class ConstMessages { // verilecek sabit mesajlar
         public static $Required="Bu alan boş geçilemez";
         public static $Number="Bu alan sayı olmalı";
         public static $Invalid="Bu alan geçersiz";

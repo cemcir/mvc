@@ -6,7 +6,7 @@
             $this->blogModel=$blogModel;
         }
 
-        public function GetAll($options):IDataResult {
+        public function GetAll($options):IDataResult { //ilgili sql tablo kıstalarını dizi şeklide parametre olarak al
             return $this->blogModel->GetAll($options,Messages::$BlogNotFound);
         }
 
@@ -59,7 +59,7 @@
             $result=$this->blogModel->Get($id,Messages::$BlogNotFound);
             if($result->Success==false) {
                 $errorResult=new ErrorResult($result->Message);
-                unset($errorResult->arrMessage);
+                //unset($errorResult->arrMessage);
                 return $errorResult;
             }
             return new SuccessResult();

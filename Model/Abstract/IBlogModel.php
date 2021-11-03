@@ -1,5 +1,5 @@
 <?php
-    interface IBlogModel {
+    interface IBlogModel extends IEntityModel {
         
     }
 ?>

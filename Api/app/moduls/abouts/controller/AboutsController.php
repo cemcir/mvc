@@ -24,5 +24,23 @@
                 }
             }
         }
+
+        public function Update() {
+            $this->data = json_decode(file_get_contents("php://input"),true);
+            $result=$this->aboutService->Update($this->data);
+            if($result->Success) {
+                http_response_code($this->httpStatusCode['OK']);
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+            else {
+                if(!empty($result->arrMessage)) {
+                    http_response_code($this->httpStatusCode['UnprocessableEntity']);
+                }
+                else {
+                    http_response_code($this->httpStatusCode['InternalServerError']);
+                }
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+        }
     }
 ?>

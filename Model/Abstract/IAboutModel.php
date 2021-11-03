@@ -1,5 +1,5 @@
 <?php
-    interface IAboutModel {
+    interface IAboutModel extends IEntityModel {
 
     }
 ?>

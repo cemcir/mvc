@@ -9,23 +9,6 @@
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     
     $app=new App($config,Db::GetInstance()->GetConnection(),$httpStatusCode);
-    $arr=[
-        "settings_id"=>'1',
-        "settings_description" => "enes.pdf",
-        "settings_key" => "title",
-        "settings_value" => "    ne yazılım cMS Yönetim Paneli   ",
-        "settings_type" => "text",
-        "settings_must" => 0,
-        "settings_delete" => 0,
-        "settings_status" => 1
-    ];
-    //$validate=ValidationTool::Validate([SettingValidator::Validate($arr)]);
-    //print_r($validate);
-    /*
-    $blog=['blogs_title'=>'Blog 01','blogs_slug'=>'Enes CEMCİR özEL Lİnk'];
-    $options=['slug'=>'blogs_slug','title'=>'blogs_title'];
-    print_r(Slug::SlugFunc($blog,$options));
-    */
     
     /*
     $rules=[

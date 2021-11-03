@@ -1,5 +1,5 @@
 <?php
-    interface IEntityModel {
+    interface IEntityModel { //Her varitabanı tablosu için kullanılan ortak model metodlarının interface sınıfı
         public function GetAll($options,$entityNotFound):IDataResult;
         public function Get($value,$entityNotFound):IDataResult;
         public function Add($values,$entityAdded,$entityNotAdded):IResult;

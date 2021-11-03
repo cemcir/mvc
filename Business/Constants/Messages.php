@@ -11,5 +11,6 @@
         public static $BlogUpdated="Blog başarıyla güncellendi";
         public static $BlogDeleted="Blog başarıyla silindi";
         public static $AboutNotFound="Hakkımda bilgisi bulunamadı";
+        public static $AboutUpdated="Hakkımda bilgisi güncellendi";
     }
 ?>

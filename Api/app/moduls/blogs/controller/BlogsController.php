@@ -70,7 +70,6 @@
             $this->data=$_POST;
             $file_delete=$this->data['delete_file'];
             unset($this->data['delete_file']);
-            //$this->data = json_decode(file_get_contents("php://input"),true);
             $this->result=$this->blogService->Update($this->data,['file_name'=>'blogs_file','time'=>'blogs_time','slug'=>'blogs_slug','title'=>'blogs_title']);
             if($this->result->Success) {
                 http_response_code($this->httpStatusCode['OK']);
