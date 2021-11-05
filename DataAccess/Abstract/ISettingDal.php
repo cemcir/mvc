@@ -1,5 +1,5 @@
 <?php
-    interface ISettingDal {
+    interface ISettingDal extends IEntityRepository {
         
     }
 ?>

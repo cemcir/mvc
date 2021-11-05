@@ -20,7 +20,10 @@
     App::getAction('/api/abouts/getbyslug/([a-z]+)','/abouts/getbyslug');
     App::postAction('/api/abouts/update','/abouts/update');
     
+    //Sliders
+    App::postAction('/api/sliders/add','/sliders/add');
     
+
     /* Burası devre dışı
     App::getAction('/kullanici/([0-9a-zA-Z-_]+)','/default/users/([0-9a-zA-Z-_]+)');
     App::postAction('/form','/default/formpost');

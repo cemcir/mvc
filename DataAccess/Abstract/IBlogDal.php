@@ -1,5 +1,5 @@
 <?php
-    interface IBlogDal {
+    interface IBlogDal extends IEntityRepository {
 
     }
 ?>

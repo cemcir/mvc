@@ -12,5 +12,7 @@
         public static $BlogDeleted="Blog başarıyla silindi";
         public static $AboutNotFound="Hakkımda bilgisi bulunamadı";
         public static $AboutUpdated="Hakkımda bilgisi güncellendi";
+        public static $SliderAdded="Slayt başarıyla eklendi";
+        public static $SliderNotAdded="Slayt eklenemedi";
     }
 ?>
