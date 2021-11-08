@@ -7,5 +7,8 @@
         public function Delete($value);
         public function QSql($sql);
         public function GetByColumn($column,$value);
+        public function GetMaxId();
+        public function GetMinId();
+        public function GetByIndis($pageNumber,$indis);
     }
 ?>

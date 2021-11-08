@@ -13,7 +13,7 @@
                 $stmt=$this->unitOfWork->dal->GetAll($options);// ilgili options sorgu kıstasıyla tablodaki tüm veriler alınacak options=[] olursa tabloyu olduğu gibi listeleyecek
                 $this->unitOfWork->Commit();// transaction ı commit et
                 if($stmt->rowCount()>0) {// tablodan birden fazla satır geldi mi kontrol et
-                    $this->data=$stmt->fetchAll(PDO::FETCH_ASSOC);// tablodaki tüm satırları al
+                    $this->data=$stmt->fetchAll();// tablodaki tüm satırları al
                     return new SuccessDataResult($this->data); // başarılı veri objesi dön Success=true ,Data=ilgili tablodan dönen verilerin listesi
                 }
                 return new ErrorDataResult($entityNotFound);// başarısız veri objesi dön Success=false ,Data=null ,ve Message=ilgili tablo için hata mesajı
@@ -95,6 +95,23 @@
                 $this->unitOfWork->Commit();
                 if($stmt->rowCount()>0) {
                     $this->data=$stmt->fetch(PDO::FETCH_ASSOC);//tablodaki tek satırı al
+                    return new SuccessDataResult($this->data);
+                }
+                return new ErrorDataResult($entityNotFound);
+            }
+            catch(PDOException $e) {
+                $this->unitOfWork->RollBack();
+                return new ErrorDataResult($e->getMessage());
+            }
+        }
+
+        public function GetByIndis($pageNumber,$indis,$entityNotFound):IDataResult {
+            try {
+                $this->unitOfWork->BeginTransaction();
+                $stmt=$this->unitOfWork->dal->GetByIndis($pageNumber,$indis);
+                $this->unitOfWork->Commit();
+                if($stmt->rowCount()>0) {
+                    $this->data=$stmt->fetchAll(PDO::FETCH_ASSOC);
                     return new SuccessDataResult($this->data);
                 }
                 return new ErrorDataResult($entityNotFound);

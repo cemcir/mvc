@@ -58,15 +58,13 @@
         private function CheckIfBlogExist($id) {
             $result=$this->blogModel->Get($id,Messages::$BlogNotFound);
             if($result->Success==false) {
-                $errorResult=new ErrorResult($result->Message);
-                //unset($errorResult->arrMessage);
-                return $errorResult;
+                return new ErrorResult($result->Message);    
             }
             return new SuccessResult();
         }
 
         private function BlogStringOperations($blog=[],$options=[]):array {
-            $blog=MbConvertCase::ConvertCase(array_keys($blog),$blog,['blogs_title']);
+            $blog=MbConvertCase::ConvertCase($blog,['blogs_title']);
             $blog=AddFileEntity::Add($blog,$options);
             $blog=Slug::SlugFunc($blog,$options);
             $blog=Now::DateTime($blog,$options);

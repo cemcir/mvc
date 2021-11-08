@@ -20,10 +20,8 @@
                 return $validate;
             }
             $setting=AddFileEntity::Add($setting,$options);// şifrelenmiş dosyayı entity dizisine dahil eder
-            //$setting=Trim::TrimFunc(array_keys($setting),$setting,['settings_value']);
             $result = $this->settingModel->Add($setting,Messages::$SettingAdded,Messages::$SettingNotAdded);
             if($result->Success && !empty($_FILES['settings_value']['name'])) {
-                //MoveUploadedFile::Move($_FILES['settings_value']['tmp_name'],$setting['settings_value'],$options);
                 $result->EncryptionFile=$setting[$options['file_name']];
             }
             return $result;

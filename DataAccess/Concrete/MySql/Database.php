@@ -25,6 +25,9 @@
         private static function Connect() {
             try {
                 self::$connection=new PDO('mysql:host=' .self::$dbhost. ';dbname=' .self::$dbname. ';charset=utf8',self::$dbuser,self::$dbpass);
+                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                self::$connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                 //echo "Bağlantı Başarılı";
             }
             catch(PDOException $e) {

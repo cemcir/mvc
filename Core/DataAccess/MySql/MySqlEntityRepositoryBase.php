@@ -28,14 +28,14 @@
             $keys=array_keys($argse);// $argse dizisinin key değerlerini al  
             $str=null;
             foreach($keys as $key) { // dizinin tüm keylerini döngü ile gez
-                if($key==$keys[count($keys)-1]) { // dizinin son keyinin değeri gelen döngüden gelen key ile eşit mi kontrol et 
+                if($key==$keys[count($keys)-1]) { // dizinin son keyinin değeri döngüden gelen key ile eşit mi kontrol et 
                     $str=$str."".$key."=?"; // str değerine key değerini ve string değerini ekle 
                 }
                 else {
-                    $str=$str."".$key."=?,"; // str değerine key değerini ve string değerini ekle 
+                    $str=$str."".$key."=?,"; 
                 }
             }
-            return $str; //email=?,name=?,surname=? gibi bir ifade döner
+            return $str; //örneğin email=?,name=?,surname=? gibi bir string ifadesi döner
         }
         */
         public function GetAll($options = []) {
@@ -55,7 +55,7 @@
 
         public function Get($value) {
             $stmt=$this->db->prepare("SELECT * FROM $this->table WHERE $this->id=?"); // ilgili tablodan belirtilen id ye ait veriyi alır  
-            $stmt->execute([htmlspecialchars(strval($value))]);//id değerinin olası html taglarını süz ilgili sorguyu id değeri ile yürüt
+            $stmt->execute([htmlspecialchars($value)]);//id değerinin olası html taglarını süz ilgili sorguyu id değeri ile yürüt
             return $stmt;// sorgu objesini geriye dön  
         }
 
@@ -78,7 +78,7 @@
 
         public function Delete($value) {
             $stmt=$this->db->prepare("DELETE FROM $this->table WHERE $this->id=?");
-            $stmt->execute([htmlspecialchars(strval($value))]);
+            $stmt->execute([htmlspecialchars($value)]);
             return $stmt;
         }
 
@@ -91,8 +91,28 @@
 
         public function GetByColumn($column,$value) {//ilgili sütuna ait satırı alır
             $stmt=$this->db->prepare("SELECT * FROM $this->table WHERE $column=?"); // örneğin select * from settings where settings_id=? sorgusu çalışacak
-            $stmt->execute([htmlspecialchars(strval($value))]);// html taglarını süz ve parametre olarak gönderilen id değerini yürüt
+            $stmt->execute([htmlspecialchars($value)]);// html taglarını süz ve parametre olarak gönderilen id değerini yürüt
             return $stmt;// sorgu objesini geri dön
+        }
+
+        public function GetMaxId() {
+            $stmt=$this->db->prepare("SELECT MAX($this->id) as maxId FROM $this->table");
+            $stmt->execute();
+            return $stmt;
+        }
+
+        public function GetMinId() {
+            $stmt=$this->db->prepare("SELECT MIN($this->id) as minId FROM $this->table");
+            $stmt->execute();
+            return $stmt;
+        }
+        
+        public function GetByIndis($pageNumber,$indis) {
+            $beginner=($pageNumber-1)*$indis;
+            $end=$pageNumber*$indis;
+            $stmt=$this->db->prepare("SELECT * FROM $this->table LIMIT ?,?");
+            $stmt->execute(array($beginner,$end));
+            return $stmt;
         }
     }
 ?>

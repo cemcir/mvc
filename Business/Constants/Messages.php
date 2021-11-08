@@ -14,5 +14,8 @@
         public static $AboutUpdated="Hakkımda bilgisi güncellendi";
         public static $SliderAdded="Slayt başarıyla eklendi";
         public static $SliderNotAdded="Slayt eklenemedi";
+        public static $SliderNotFound="Slayt bulunamadı";
+        public static $SliderUpdated="Slayt başarıyla güncellendi";
+        public static $MessageNotFound="Mesaj bulunamadı";
     }
 ?>
