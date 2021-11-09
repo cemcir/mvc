@@ -10,5 +10,6 @@
         public function GetMaxId();
         public function GetMinId();
         public function GetByIndis($pageNumber,$indis);
+        public function GetRecordNumber();
     }
 ?>

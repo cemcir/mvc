@@ -2,7 +2,7 @@
     final class Min implements IMin {
 
         public static function Check($value,$min) { 
-            if($value<$min) { // verilen değerin minimum alabileceği karakter sayısını kontrol eder
+            if(strlen($value)<$min) { // verilen değerin minimum alabileceği karakter sayısını kontrol eder
                 return false;
             }
             return true;

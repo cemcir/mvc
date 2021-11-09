@@ -9,7 +9,7 @@
         }
 
         public static function Message() {
-
+            return ConstMessages::$Invalid;
         }
 
     }

@@ -19,7 +19,9 @@
             'image'=>'Image',
             'size'=>'Size',
             'max'=>'Max',
-            'name'=>'Name'
+            'name'=>'Name',
+            'min'=>'Min',
+            'email'=>'Email'
         ];
 
         //ilgili alanlara kural belirtmeyi sağlar
@@ -47,7 +49,7 @@
             
             $fails=[]; // doğrulama hatalarını atacağımız dizi
             $arr=[]; // eğer : işareti varsa explode ile parçala buraya at
-            $rules=['string','required','number','length','max','']; //image ve size dışındaki doğrulama kurallarını bu diziye at in_array ile kolay kıyaslama yapmak için
+            $rules=['string','required','number','length','max','min','email','name']; //image ve size dışındaki doğrulama kurallarını bu diziye at in_array ile kolay kıyaslama yapmak için
             
             foreach(self::$rules as $key=>$rule) {
                 for($i=0; $i<count($rule); $i++) {

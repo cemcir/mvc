@@ -27,7 +27,8 @@
     
     //Contacts
     App::getAction('/api/contacts/getmessage/([0-9]+)/([0-9]+)','/contacts/getmessage');
-
+    App::postAction('/api/contacts/add','/contacts/add');
+    
     /* Burası devre dışı
     App::getAction('/kullanici/([0-9a-zA-Z-_]+)','/default/users/([0-9a-zA-Z-_]+)');
     App::postAction('/form','/default/formpost');

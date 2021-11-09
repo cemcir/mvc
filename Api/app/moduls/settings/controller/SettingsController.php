@@ -8,7 +8,7 @@
         }
 
         public function GetAll() {
-            $this->result=$this->settingService->GetAll(['columns_name'=>'settings_id','columns_sort'=>'DESC','limit'=>'10']);
+            $this->result=$this->settingService->GetAll(['columns_name'=>'settings_id','columns_sort'=>'ASC','limit'=>'10']);
             if($this->result->Success) {
                 http_response_code($this->httpStatusCode['OK']);
                 echo json_encode($this->result,JSON_UNESCAPED_UNICODE);

@@ -41,15 +41,17 @@
         public function GetAll($options = []) {
             if(!empty($options['columns_name']) && !empty($options['columns_sort']) && empty($options['limit'])) {// options dizisinde ki limit,colums_name,colums_sort değerlerinin boş olup olmadığını kontrol et
                 $stmt=$this->db->prepare("SELECT * FROM $this->table ORDER BY {$options['columns_name']} {$options['columns_sort']}"); // örneğin select * from settings order by settings_id desc sorgusu çalışacak
+                $stmt->execute();
             }
             else if(!empty($options['columns_name']) && !empty($options['columns_sort'] && !empty($options['limit']))) {
-                $stmt=$this->db->prepare("SELECT * FROM $this->table ORDER BY {$options['columns_name']} {$options['columns_sort']} LIMIT {$options['limit']}");
+                $stmt=$this->db->prepare("SELECT * FROM $this->table ORDER BY {$options['columns_name']} {$options['columns_sort']} LIMIT ?");
+                $stmt->execute([htmlspecialchars($options['limit'])]);
                 //örneğin select * from settings order by settings_must asc limit 5 sorgusu çalışacak ilk 5 değeri tablodan alır
             }
             else {
                 $stmt=$this->db->prepare("SELECT * FROM $this->table");// örneğin select * from settings sorgusu çalışacak 
+                $stmt->execute();
             }
-            $stmt->execute();//ilgili sorguyu yürüt
             return $stmt; // sorgu objesini geriye dön 
         }
 
@@ -109,9 +111,14 @@
         
         public function GetByIndis($pageNumber,$indis) {
             $beginner=($pageNumber-1)*$indis;
-            $end=$pageNumber*$indis;
             $stmt=$this->db->prepare("SELECT * FROM $this->table LIMIT ?,?");
-            $stmt->execute(array($beginner,$end));
+            $stmt->execute(array($beginner,$indis));
+            return $stmt;
+        }
+
+        public function GetRecordNumber() {
+            $stmt=$this->db->prepare("SELECT COUNT(*) as recordNumber FROM $this->table");
+            $stmt->execute();
             return $stmt;
         }
     }

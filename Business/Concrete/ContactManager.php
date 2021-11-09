@@ -10,5 +10,12 @@
             return $this->contactModel->GetByIndis($pageNumber,$indis,Messages::$MessageNotFound);
         }
 
+        public function Add($contact):IResult {
+            $validate=ValidationTool::Validate([ContactValidator::Validate($contact)]);
+            if($validate!=null) {
+                return $validate;
+            }
+            return $this->contactModel->Add($contact,Messages::$ContactAdded,Messages::$ContactNotAdded);
+        }
     }
 ?>

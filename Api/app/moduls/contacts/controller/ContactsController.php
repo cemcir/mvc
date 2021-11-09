@@ -22,5 +22,22 @@
             }
             echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
         }
+
+        public function Add() {
+            $this->data=json_decode(file_get_contents("php://input"),true);
+            $this->result=$this->contactService->Add($this->data);
+            if($this->result->Success) {
+                http_response_code($this->httpStatusCode['OK']);
+            }
+            else {
+                if(!empty($this->result->arrMessage)) {
+                    http_response_code($this->httpStatusCode['UnprocessableEntity']);
+                }
+                else {
+                    http_response_code($this->httpStatusCode['InternalServerError']);
+                }
+            }
+            echo json_encode($this->result,JSON_UNESCAPED_UNICODE);
+        }
     }
 ?>
